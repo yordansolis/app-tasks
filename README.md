@@ -21,46 +21,101 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+# Task Management Application
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Descripción General
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Esta es una aplicación de gestión de tareas desarrollada con Laravel y Livewire. Permite a los usuarios crear, ver, editar y eliminar tareas, así como marcarlas como completadas o pendientes.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Estructura del Proyecto
 
-## Laravel Sponsors
+El proyecto sigue la estructura estándar de Laravel con componentes Livewire para la interfaz de usuario reactiva:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Controllers**: Contiene los controladores que manejan las solicitudes HTTP.
+- **Models**: Define los modelos de datos de la aplicación.
+- **Livewire Components**: Componentes reactivos para la interfaz de usuario.
+- **Views**: Plantillas Blade para renderizar la interfaz de usuario.
 
-### Premium Partners
+## Modelo de Datos
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Task (Tarea)
 
-## Contributing
+El modelo principal de la aplicación con los siguientes campos:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **title**: Título de la tarea
+- **description**: Descripción detallada de la tarea
+- **author**: Autor de la tarea
+- **status**: Estado de la tarea (0 = pendiente, 1 = completada)
+- **created_at**: Fecha de creación
+- **updated_at**: Fecha de actualización
 
-## Code of Conduct
+## Endpoints y Rutas
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Rutas Web
 
-## Security Vulnerabilities
+| Ruta     | Método | Descripción                                             |
+| -------- | ------ | ------------------------------------------------------- |
+| `/`      | GET    | Página de bienvenida                                    |
+| `/tasks` | GET    | Listado principal de tareas (implementado con Livewire) |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Funcionalidades en Controlador TaskController
 
-## License
+| Funcionalidad                    | Método   | Descripción                                  |
+| -------------------------------- | -------- | -------------------------------------------- |
+| `show_all()`                     | GET      | Muestra todas las tareas                     |
+| `view_create()`                  | GET      | Muestra el formulario para crear una tarea   |
+| `tasks_create(Request $request)` | POST     | Crea una nueva tarea                         |
+| `show($id)`                      | GET      | Muestra los detalles de una tarea específica |
+| `update(Request $request, $id)`  | PUT/POST | Actualiza una tarea existente                |
+| `destroy($id)`                   | DELETE   | Elimina una tarea                            |
+| `complete($id)`                  | PUT/POST | Marca una tarea como completada              |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Componentes Livewire
+
+| Componente | Funcionalidad | Descripción                                                   |
+| ---------- | ------------- | ------------------------------------------------------------- |
+| TaskList   | Listar tareas | Muestra todas las tareas con funciones de búsqueda y filtrado |
+| TaskCreate | Crear tareas  | Formulario para crear nuevas tareas                           |
+| TaskEdit   | Editar tareas | Formulario modal para editar tareas existentes                |
+| Welcome    | Bienvenida    | Página de bienvenida de la aplicación                         |
+
+## Funcionalidades Principales
+
+### TaskList Component
+
+- Listar todas las tareas con paginación
+- Buscar tareas por título, descripción o autor
+- Filtrar tareas por estado (completadas/pendientes)
+- Eliminar tareas
+- Cambiar el estado de las tareas (completada/pendiente)
+
+### TaskCreate Component
+
+- Crear nuevas tareas con validación de datos
+- Mostrar/ocultar formulario de creación
+
+### TaskEdit Component
+
+- Editar tareas existentes con validación de datos
+- Interfaz modal para edición
+
+## Cómo Usar la Aplicación
+
+1. **Ver Tareas**: Visita la ruta `/tasks` para ver todas las tareas existentes.
+2. **Crear Tarea**: En la página de tareas, haz clic en "Nueva Tarea" para abrir el formulario de creación.
+3. **Editar Tarea**: Haz clic en el botón de edición junto a una tarea para modificar sus detalles.
+4. **Eliminar Tarea**: Haz clic en el botón de eliminar junto a una tarea para borrarla.
+5. **Cambiar Estado**: Utiliza el botón de alternar estado para marcar una tarea como completada o pendiente.
+6. **Buscar y Filtrar**: Utiliza la barra de búsqueda y los selectores de filtro para encontrar tareas específicas.
+
+## Validaciones
+
+Todas las operaciones de creación y edición de tareas incluyen las siguientes validaciones:
+
+- Título: Obligatorio, mínimo 3 caracteres
+- Descripción: Obligatorio
+- Autor: Obligatorio
+
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+
+<p align="center">
