@@ -107,3 +107,7 @@ Todas las operaciones de creación y edición de tareas incluyen las siguientes 
 - Título: Obligatorio, mínimo 3 caracteres
 - Descripción: Obligatorio
 - Autor: Obligatorio
+<<<<<<< HEAD
+=======
+
+>>>>>>> 281fd99587d538efffdd574f41ce1ef0e21164c6
