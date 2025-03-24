@@ -9,6 +9,12 @@
 
 # Task Management Application
 
+### Iniciar con el comando:
+
+```
+compose start
+```
+
 ## Descripción General
 
 Esta es una aplicación de gestión de tareas desarrollada con Laravel y Livewire. Permite a los usuarios crear, ver, editar y eliminar tareas, así como marcarlas como completadas o pendientes.
