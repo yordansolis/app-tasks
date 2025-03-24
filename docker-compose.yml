@@ -1,0 +1,24 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: example_app_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: example_app
+      MYSQL_ROOT_PASSWORD: root123
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
